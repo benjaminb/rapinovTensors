@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{adjustbox}
+\usepackage{amsmath, amsthm, amsfonts}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{nicefrac}
+\lstset
+{
+    language=[LaTeX]TeX,
+    breaklines=true,
+    basicstyle=\tt\scriptsize,
+    keywordstyle=\color{blue},
+    identifierstyle=\color{magenta},
+}
+
+
+\title{Rapinov Intro to Tensors}
+\author{}
+\date{}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\newcommand{\basis}{\mathbf{e}_1}
+\newcommand{\basiss}{\mathbf{e}_2}
+\newcommand{\basisss}{\mathbf{e}_3}
+\newcommand{\nbasis}{\widetilde{\mathbf{e}}_1}
+\newcommand{\nbasiss}{\widetilde{\mathbf{e}}_2}
+\newcommand{\nbasisss}{\widetilde{\mathbf{e}}_3}
+\begin{document}
+
+\maketitle
+\setcounter{section}{1}
+\section{Bound Vectors and Free Vectors}
+\subsection{What is a scalar field? Suggest an appropriate definition by analogy with definition 2.1.}
+
+Since a vector-valued function with a point argument is a `vector-field', a scalar field would be a scalar-valued function with a point argument. An example would be the function that maps a point in space to the temperature at that point.
+
+\subsection{(for deep thinking). Let y = f(x) be a function with a non- numeric argument. Can it be continuous? Can it be differentiable? In general, answer is negative. However, in some cases one can extend the definition of continuity and the definition of derivatives in a way applicable to some functions with non-numeric arguments. Suggest your version of such a generalization. If no versions, remember this problem and return to it later when you gain more experience.}
+
+We can appeal to the topological definition of continuity. For $f: X \longrightarrow Y$, $f$ is continuous if for every $V$ open in $Y$, $f^{-1}(V)$ is open in $X$. We could declare everything in $X$ to be open and then any $f^{-1}(V) \subset X$ is open by fiat. 
+
+For derivatives on non-numeric maps we would need to define differentiation and/or limits. One example is Chen's differential operator for grammars, where if a grammar includes the replacement rule $u \rightarrow v$ then $Du = v$.
+
+\subsection{Remember the parallelogram method for adding two vectors (draw picture). Remember how vectors are multiplied by a real number $\alpha$. Consider three cases: $\alpha> 0$, $\alpha < 0$, and $\alpha = 0$. Remember what the zero vector is. How it is represented geometrically?}
+
+The parallelogram method for adding vectors is to lay them head-to-tail. Since the addition is commutative, it doesn't matter if we do $v+w$ or $w+v$, hence we get two ways to arrive at the same sum and laying the vectors out both ways draws a parallelogram.
+
+The scalar $\alpha$ scales vector $v$ by changing its length but not its direction: $|\alpha \mathbf{v}| = |\alpha| |\mathbf{v}|$. If $\alpha < 0$ then the vector flips direction along the line it lays on. If $\alpha > 0$ then the vector continues pointing in the same direction. If $\alpha = 0$ the vector becomes the 0 vector. Geometrically, the 0 vector could be considered the origin or a point in space (if bound).
+
+\subsection{Do you remember the exact mathematical definition of a linear
+vector space?}
+
+A vector space is a set $V$ over a field $k$ with the following structure: there is an addition operation $+$ on elements of $V$ which is associative and commutative, there is a a multiplication operation between scalars in (elements of) $k$ and vectors in $V$ that is associative and commutative, and the addition and multiplication operations are distributive over each other. $V$ must also be closed under addition and scalar multiplication. 
+
+\subsection{Binary relation, quotient set, quotient group, etc.} A binary relation $R$ on a set $V$ is a subset of $V \times V$. For $v, u \in V$ we say $v$ stands in relation $R$ to $u$ if $(v,u) \in R$, more commonly notated as $vRu$. Or we may use a symbol such as $\prec$ to say $v \prec u$. A relation that is transitive, symmetric and reflexive is said to be an equivalency relation. For instance, = on most number systems has these three properties. 
+
+For any set $V$ we may obtain the partition $V / \sim$ where $\sim$ is an equivalency relation and we assign equivalent elements (wrt $\sim$) to the same subset in $V / \sim$. This is the quotient set. If the set has group structure then the resulting partition also has a natural group structure and may be called the quotient group.
+
+\section{No exercises}
+\section{Bases and Cartesian Coordinates}
+\subsection{Formulate the definitions of bases on a plane and on a straight line by analogy with definition 4.2.}
+
+Definition 4.2 says a basis is a ``any non-coplanar ordered triple of vectors $(\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3)$'' for real Euclidean space. The analogous definition for the plane would be any non-colinear ordered pair of vectors $(\mathbf{e}_1, \mathbf{e}_1)$ and for the real line it would be any non-zero vector.
+
+\subsection{Explain how, for what reasons, and in what order additional lines on Fig. 6 are drawn.}
+
+It appears we have a skew-angular basis (SAB) consisting of $(\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3)$. Say we have the vector $\vec{OD}$ and we want to express it as a linear combination of this basis. By the geometric rule of vector addition, we have $\vec{OD} = \vec{AE} + \vec{BE} + \vec{ED}$. By translating vectors to anchor at the origin, we see that $\vec{AE} = \vec{OB}$ and $\vec{ED} = \vec{OC}$. Thus
+$$\overrightarrow{OD} = \overrightarrow{OA} + \overrightarrow{OB} + \overrightarrow{OC}$$
+
+The vector $\overrightarrow{OA}$ is colinear with $\mathbf{e}_1$, so $\overrightarrow{OA} = \alpha_1\mathbf{e}_1$ for some scalar $\alpha_1$. Likewise, $\overrightarrow{OB}$ is colinear with $\mathbf{e}_2$ and $\overrightarrow{OC}$ is colinear with $\mathbf{e}_3$, so we can write
+$$\overrightarrow{OD} = \alpha_1 \mathbf{e}_1 +  \alpha_2 \mathbf{e}_2 +  \alpha_3 \mathbf{e}_3 = \sum a_i \mathbf{e}_i$$
+
+\subsection{Explain why $\alpha$, $\beta$, and $\gamma$ are uniquely determined by vector $\vec{a}$.}
+
+Suppose $\mathbf{a}$ can be written as $\alpha \mathbf{e}_1 + \beta \mathbf{e}_2 + \gamma \mathbf{e}_3$ with respect to the basis $B = \{\mathbf{e}_1, \mathbf{e}_2, \mathbf{e}_3\}$. Since $B$ is a basis its members are linearly independent. Hence the \emph{only} way to write $\mathbf{a}$ in this basis is by the linear combination above. I another vector has coordinates $(\alpha, \beta, \gamma)$ in this basis, is it necessarily also the vector $\mathbf{a}$, hence the vector uniquely determines the coordinates.
+
+\subsection{Remember the exact mathematical definition for the real arithmetic vector space $\mathbb{R}^n$, where $n$ is a positive integer.}
+
+$\mathbb{R}^n$ is an n-dimensional vector space over the field of real numbers. The standard basis is $n$-tuples $(1,0,\ldots,0), \ldots, (0, \ldots,1)$.
+
+\section{Changing Bases}
+\subsection{What happens if $\widetilde{\mathbf{e}_1}=\mathbf{e}_1$? What are the numeric values for $S_1^1,S_1^2,S_1^3$ in formula 5.3 in this case?}
+
+If $\widetilde{\mathbf{e}}_1=\mathbf{e}_1$ then
+$$\widetilde{\mathbf{e}}_1= 1 \cdot \mathbf{e}_1 + 0 \cdot \mathbf{e}_2 + 0 \cdot \mathbf{e}_3$$
+
+so $S_1^1=1, S_1^2=0,S_1^3=0$.
+
+\subsection{What happens if $\widetilde{\mathbf{e}}_i = \mathbf{e}_i$ for all i?}
+
+Then the direct transition matrix is $I_3$, the identity matrix. If we have $\widetilde{\mathbf{e}}_1= \mathbf{e}_1, \widetilde{\mathbf{e}}_2=\mathbf{e}_3,\widetilde{\mathbf{e}}_3=\mathbf{e}_2$, then the transition matrix is
+$$
+\begin{bmatrix}
+	S_1^1 & S_2^1 & S_3^1 \\
+	S_1^2 & S_2^2 & S_3^2 \\
+	S_1^3 & S_2^3 & S_3^3 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	1 & 0 & 0 \\
+	0 & 0 & 1 \\
+	0 & 1 & 0 \\
+\end{bmatrix}$$
+
+If we have $\nbasis = \basisss, \nbasiss = \basis, \nbasisss = \basiss$ then the transition matrix is:
+
+$$
+\begin{bmatrix}
+	S_1^1 & S_2^1 & S_3^1 \\
+	S_1^2 & S_2^2 & S_3^2 \\
+	S_1^3 & S_2^3 & S_3^3 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+	1 & 0 & 0 \\
+\end{bmatrix}$$
+
+If we had $\nbasis = \basis - \basiss, \nbasiss = \basiss - \basisss, \nbasisss = \basisss - \basis$ then the transition matrix would be:
+$$
+\begin{bmatrix}
+	S_1^1 & S_2^1 & S_3^1 \\
+	S_1^2 & S_2^2 & S_3^2 \\
+	S_1^3 & S_2^3 & S_3^3 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+	1  & 0  & -1 \\
+	-1 & 1  & 0 \\
+	0  & -1 & 1 \\
+\end{bmatrix}$$
+
+By row reduction we see this matrix is singular, therefore it cannot be a change of basis matrix.
+
+\subsection{What is the inverse matrix?}
+
+The inverse of a matrix $A$ (if it exists) is the matrix $B$ that is both a left and right inverse of $A$. That is, $AB = BA = I$. The inverse may be calculated by adjoining the identity to $A$ to create $[ A \ | \ I ]$, then row-reducing to $[ I \ | \ A^{-1} ]$.
+
+\subsection{Remember what is the determinant of a matrix. How is it usually calculated?}
+
+The determinant of a matrix is a skew-symmetric functional which is linear in each column of the matrix. It may be computed by the recursive function 
+$$\det A = \sum_{\text{row } i} (-1)^{i+1} \det A_{[i]}$$
+
+If $\det A$ is known and is not 0, then $\det A^{-1} = (\det A)^{-1}$. The determinant is multiplicative (homogenous), i.e. $\det(AB) = \det(A)\det(B)$. Thus $\det (AA^{-1}) = \det I = 1$ but also $\det(A)\det(A^{-1}) = 1$, which means the determinant of the inverse is the multiplicative inverse of the determinant.
+
+\subsection{What is matrix multiplication? Suppose you have a rectangular 5 $\times$ 3 matrix $A$ and another $4 \times 5$ matrix $B$. Which of $AB$ or $BA$ can you calculate?}
+
+Matrix multiplication $AB$ is defined as (rows of $A$)$\cdot$(cols of $B$). As such, the column count of $A$ must match the row count of $B$. Then $BA$ is defined but not $AB$.
+
+\subsection{Suppose $A$ and $B$ are two rectangular matrices and suppose that $C=AB$. Write the components of $C$ if we denote the components of $B$ as $B^{pq}$}
+
+Say $A$ is $m \times n$ and $B$ is $n \times p$. Then $C$ is $m \times p$. Then the $(i,j)$ entry in $C$, $C_{ij} = \sum_k A_{ik} B_{kj}$. In Einstein notation we would put the column index up top and remove the Sigma: $C_{ij} = A^k_i B^j_k$.
+
+\subsection{Give some examples of matrix multiplication that are consistent with Einstein notation and some that are not.}
+
+If we consider vectors to be column vectors, then a matrix may be interpreted as a collection of row vectors. Matrix multiplication is then the dot product of these column and row vectors, and Einstein notation translates the column index of the matrix to the upper index:
+
+$$(Ax)_k = \sum_{j}A_{kj}x_j \equiv A^j_k x_j$$
+
+Likewise a change of basis matrix is consistent with Einstein notation: 
+$$\mathbf{e}_i = S_i^1 \basis + S_i^2 \basiss + S_i^3 \basisss = \sum_j S_1^j \mathbf{e}_j \equiv S_1^j \mathbf{e}_j$$
+
+It's unclear how Einstein notation should handle matrix-matrix multiplication.
+
+\subsection{For matrices $\tilde{\tilde{S}}, \tilde{\tilde{T}}$ prove they equal $S\tilde{S}$ and $T\tilde{T}$ respectively. Apply this result for proving theorem 5.1}
+
+ 
+Rapinov is mistaken here: $\tilde{\tilde{S}}$ has basis 1 for its domain while $S \tilde{S}$ has basis 2. Therefore $\tilde{\tilde{S}} \neq S \tilde{S}$. However $\tilde{\tilde{S}} = \tilde{S}S. $
+
+By definition $\tilde{\tilde{S}}$ is the matrix that carries $\mathbf{e}_i \mapsto \tilde{\tilde{\mathbf{e}}}_i$. Since $S$ carries $\mathbf{e}_i \mapsto \tilde{\mathbf{e}}_i$ and by the associativity of matrix multiplication:
+$$\tilde{S} S\mathbf{e}_i =  \tilde{S}\tilde{\mathbf{e}}_i = \tilde{\tilde{\mathbf{e}}}_i = \tilde{\tilde{S}}\mathbf{e}_i, \forall i$$
+
+Linear maps are determined by their behavior on a basis, so we have the desired equality. The same argument holds for $T$.
+
+\section{What happens to vectors when we change the basis.}
+\subsection{Derive the inverse transformation formula}
+
+We want to prove that 
+$$x^j = \sum_{i=1}^3 S_i^j \tilde{x}^i$$
+
+We'll write $\mathbf{x}$ in terms of the second basis and change the order of summation.
+\begin{align*}
+	x &= \tilde{x}^1 \nbasis + \tilde{x}^2 \nbasiss + \tilde{x}^3 \nbasisss &\\
+	&= \sum_{i=1}^3 \tilde{x}^i \tilde{\mathbf{e}_i} &\\
+	&= \sum_{i=1}^3 \tilde{x}^i \sum_{j=1}^3 S_i^j \mathbf{e}_j &\text{5.7}\\
+	&= \sum_{j=1}^3 \left( \sum_{i=1}^3 \tilde{x}^iS^j_i \right)\mathbf{e}_j &\\
+	&= \sum_{j=1}^3 \left( \sum_{i=1}^3 S^j_i \tilde{x}^i \right)\mathbf{e}_j &\\
+\implies x^j &= \sum_{i=1}^3 S_i^j \tilde{x}^i &
+\end{align*}
+
+
+\subsection{Write 6.5 in expanded form}
+We have the following identity:
+$$x^j = \sum_{i=1}^3 S_i^j \tilde{x}^i $$
+which gives us
+\begin{align*}
+	x^1 &= \sum_{i=1}^3 S_i^1 \tilde{x}^i = S^1_1 \tilde{x}^1 + S^1_2 \tilde{x}^2 + S_3^1 \tilde{x}^3\\
+	x^2 &= \sum_{i=1}^3 S_i^2 \tilde{x}^i = S_1^2 \tilde{x}^1 + S_2^2 \tilde{x}^2 + S_3^2 \tilde{x}^3\\
+	x^3 &= \sum_{i=1}^3 S_i^3 \tilde{x}^i = S_1^3 \tilde{x}^1 + S_2^3 \tilde{x}^2 + S_3^3 \tilde{x}^3
+\end{align*}
+
+So in vector-matrix form we can write
+$$\begin{bmatrix}
+	x^1 \\ x^2 \\ x^3 
+\end{bmatrix} =
+\begin{bmatrix}
+	S^1_1 & S^1_2 & S^1_3 \\
+	S^2_1 & S^2_2 & S^2_3 \\
+	S^3_1 & S^3_2 & S^3_3
+\end{bmatrix}
+\begin{bmatrix}
+	\tilde{x}^1 \\ \tilde{x}^2 \\ \tilde{x}^3
+\end{bmatrix}
+$$
+
+\section{(no exercises}
+\section{Covectors}
+
+\subsection{Use the concept of inverse matrix $T = S^{-1}$ to derive formula 8.2 from 8.1}
+
+Suppose $S$ is the matrix in exercise 6.2 which changes bases from standard to tilde, and $T = S^{-1}$. Given $\tilde{\mathbf{a}} = S\mathbf{a}$, we have $S^{-1}\tilde{\mathbf{a}} = \mathbf{a} = T\tilde{\mathbf{a}}$. By expansion:
+$$(T\tilde{\mathbf{a}})_j= \sum_{i=1}^3 T^i_j \tilde{a}_i = a_i$$
+\end{document}
