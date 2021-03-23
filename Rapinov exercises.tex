@@ -217,7 +217,28 @@ $$\begin{bmatrix}
 \end{bmatrix}
 $$
 
-\section{(no exercises}
+\subsection{Derive formula 6.5: $x^j = \sum_i S^j_i \tilde{x}^i$ \\directly from 6.2: $\tilde{x}^j = \sum_i T^j_i x^i$
+\\using the concept of the inverse $S = T^{-1}$}
+
+\begin{align*}
+	\tilde{\mathbf{x}} &= \sum_j \sum_i T^j_i x^i \tilde{\mathbf{e}}_j &\\
+	S\tilde{\mathbf{x}} &= S\left(\sum_j \sum_i T^j_i x^i \tilde{\mathbf{e}}_j\right) &\\
+	&= S\left(\sum_i T^1_ix^i\tilde{\mathbf{e}}_1 + \sum_i T^2_i x^2 \tilde{\mathbf{e}}_2 = \sum_i T^3_i x^3 \tilde{\mathbf{e}}_3\right) &\\
+	&=S\begin{bmatrix}
+		T^1_1 & T^2_1 & T^3_1 \\
+		T^1_2 & T^2_2 & T^3_2 \\
+		T^1_3 & T^2_3 & T^3_3
+	\end{bmatrix}
+	\begin{bmatrix}
+		x^1 \\ x^2 \\ x^3
+	\end{bmatrix} &\\
+	&=ST\mathbf{x} &\\
+	&=\mathbf{x}
+\end{align*}
+
+Having proved $S\tilde{\mathbf{x}} = \mathbf{x}$ we can then note that for the $j$th component of $\mathbf{x}$, we have
+$$x^j = \sum_i S^j_i \tilde{x}^i$$
+\section{(no exercises)}
 \section{Covectors}
 
 \subsection{Use the concept of inverse matrix $T = S^{-1}$ to derive formula 8.2 from 8.1}
